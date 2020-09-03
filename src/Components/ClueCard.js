@@ -1,86 +1,61 @@
-
 import React, { useState } from 'react';
 
-export default class ClueCard extends React.Component {
-  constructor(props) {
-    super(props);
+export default function ClueCard(props) {
+  const [clueIsShowing, setClueIsShowing] = useState(false);
+  const [showAnswerLink, setShowAnswerLink] = useState(false);
+  const [answerIsShowing, setAnswerIsShowing] = useState(false);
+  const [cardText, setCardText] = useState(props.children);
 
-    this.state = {
-      cardText: props.children,
-      clueIsShowing: false,
-      showAnswerLink: false,
-      answerIsShowing: false
-    };
-
-    this.showClue = this.showClue.bind(this);
-    this.hideClue = this.hideClue.bind(this);
-    this.showAnswerLink = this.showAnswerLink.bind(this);
-    this.toggleAnswer = this.toggleAnswer.bind(this);
-  }
-
-  showClue(e) {
+  const showClue = (e) => {
     e.currentTarget.remove();
 
-    this.setState({
-      clueIsShowing: true
-    });
+    setClueIsShowing(true);
 
     setInterval(
-      () => this.showAnswerLink(),
+      () => setShowAnswerLink(true),
       1000
     );
   }
 
-  hideClue() {
-    this.setState({
-      clueIsShowing: false
-    });
+  const hideClue = () => {
+    setClueIsShowing(false);
   }
 
-  showAnswerLink() {
-    this.setState({
-      showAnswerLink: true
-    });
-  }
-
-  toggleAnswer() {
-    if (!this.state.answerIsShowing) {
-      this.setState({
-        cardText: this.props.answer
-      });
+  const toggleAnswer = () => {
+    if (!answerIsShowing) {
+      setCardText(props.answer);
     } else {
-      this.setState({
-        cardText: this.props.children
-      });
+      setCardText(props.children);
     }
-
-    this.setState({
-      answerIsShowing: !this.state.answerIsShowing
-    });
+    setAnswerIsShowing(!answerIsShowing);
   }
 
-  render() {
-    let valueClass = 'large';
-    if(this.props.value.length === 4) {
-      valueClass = 'medium';
-    }
+  const updateScore = (value) => {
+    props.updateScore(parseInt(value));
+    hideClue();
+  }
+  
+  let valueClass = 'large';
+  if (props.value.length === 4) {
+    valueClass = 'medium';
+  }
 
-    let textClass = 'small';
-    if(this.state.cardText.length < 20) {
-      textClass = 'large';
-    }
+  let textClass = 'small';
+  if (cardText.length < 20) {
+    textClass = 'large';
+  }
 
-    return (
-      <div className="clue-card">
-        <button className={`clue-card__value ${valueClass}`} onClick={this.showClue}><span className="dollar-sign">$</span>{this.props.value}</button>
-        <div className={`clue-card__inner ${textClass} ${this.state.clueIsShowing ? 'show' : 'hidden'}`}>
-          <div className="clue-card__inner-wrapper">
-            <div className="clue-card__clue">{this.state.cardText}</div>
-            <button className={`clue-card__answer-link ${this.state.showAnswerLink ? '' : 'hidden'}`} onClick={this.toggleAnswer}>Toggle Answer</button>
-            <button className={`clue-card__close-link ${this.state.showAnswerLink ? '' : 'hidden'}`} onClick={this.hideClue}>Close</button>
-          </div>
+  return (
+    <div className="clue-card">
+      <button className={`clue-card__value ${valueClass}`} onClick={showClue}><span className="dollar-sign">$</span>{props.value}</button>
+      <div className={`clue-card__inner ${textClass} ${clueIsShowing ? 'show' : 'hidden'}`}>
+        <div className="clue-card__inner-wrapper">
+          <div className="clue-card__clue">{cardText}</div>
+          <button className={`clue-card__answer-link ${showAnswerLink ? '' : 'hidden'}`} onClick={toggleAnswer}>Toggle Answer</button>
+          <button className={`${showAnswerLink ? '' : 'hidden'}`} onClick={() => updateScore(props.value)}>Correct</button>
+          <button className={`clue-card__close-link ${showAnswerLink ? '' : 'hidden'}`} onClick={() => updateScore(-props.value)}>Incorrect</button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }

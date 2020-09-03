@@ -1,4 +1,4 @@
-const data = {
+const set1 = {
   "OCTOBER OBSERVANCES": [
     {
       value: "200",
@@ -163,4 +163,4 @@ const data = {
   ],
 };
 
-export default data;
+export default set1;
