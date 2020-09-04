@@ -75,9 +75,9 @@ export default function Score(props) {
         <StyledSameLineDiv>
           <label htmlFor="questionSet">Question Set:</label>
           <select name="questionSet" ref={questionSetRef}  onChange={handleChange} value={props.questionSet} >
-            <option value="set1">Set 1</option>
-            <option value="set2">Set 2</option>
-            <option value="set3">Set 3</option>
+            {props.questionSetNames.map((item, i) => (
+              <option key={i} value={item}>{item}</option>
+            ))}
           </select>
         </StyledSameLineDiv>
         <StyledSameLineDiv>

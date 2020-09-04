@@ -6,11 +6,11 @@ import Admin from './Components/Admin';
 import { firebaseApp } from './base';
 import './App.css';
 
-import set1 from './Data/data';
-
 export default function App(props) {
 
-  const [questionSet, setQuestionSet] = useState(set1);
+  const [questionSet, setQuestionSet] = useState({});
+  const [questionSetNames, setQuestionSetNames] = useState([]);
+  const [questionSets, setQuestionSets] = useState({});
   const [contestant, setContestant] = useState("");
   const [score, setScore] = useState(0);
 
@@ -20,25 +20,28 @@ export default function App(props) {
         let boardData = (snapshot.val());
         console.log('boardData', boardData);
         setQuestionSet(Object.values(boardData)[0]);
+        setQuestionSetNames(Object.keys(boardData));
+        setQuestionSets(boardData);
       });
     }
     initialize();
   }, []);
 
   useEffect(() => {
-    firebaseApp.database().ref('questionSets').push(questionSet);  
+    // firebaseApp.database().ref('questionSets').push(questionSet);  
   }, [questionSet]);
 
   const updateScore = (points) => {
     setScore(score + points);
   };
 
-  const addQuestionSet = (setName) => {
-    firebaseApp.database().ref(`questionSets/${setName}`).push(questionSet);
+  const addQuestionSet = (setName, questionSet) => {
+    firebaseApp.database().ref(`questionSets/${setName}`).set(questionSet);
   }
 
   const updateQuestionSet = (set) => {
-    console.log('updateQuestionSet');
+    console.log('updateQuestionSet', set);
+    setQuestionSet(questionSets[set]);
   }
 
   return (
@@ -48,19 +51,18 @@ export default function App(props) {
           render={() => (
             <>
               <Board data={questionSet} updateScore={updateScore} />
-              <Score history={props.history} addQuestionSet={addQuestionSet} updateQuestionSet={updateQuestionSet} contestant={contestant} setContestant={setContestant} score={score} />
+              <Score history={props.history} questionSetNames={questionSetNames} updateQuestionSet={updateQuestionSet} contestant={contestant} setContestant={setContestant} score={score} />
             </>
           )}
         />
         <Route path="/admin" 
           render={() => (
             <>
-              <Admin history={props.history} ></Admin>
+              <Admin history={props.history} questionSetNames={questionSetNames} questionSets={questionSets} addQuestionSet={addQuestionSet} ></Admin>
             </>
           )}
         />
       </Switch>
     </main>
-    
   );
 }
