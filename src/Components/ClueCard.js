@@ -31,7 +31,7 @@ export default function ClueCard(props) {
   const [showButtons, setShowButtons] = useState(false);
 
   const showClue = (e) => {
-    e.currentTarget.remove();
+    e.currentTarget.classList.add("hiddenValue");
 
     setClueIsShowing(true);
 
