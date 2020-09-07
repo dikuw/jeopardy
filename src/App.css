@@ -10,6 +10,10 @@ body {
   display: none!important;
 }
 
+.hiddenValue {
+  opacity: 0;
+}
+
 main {
   display: flex;
   flex-direction: column;  

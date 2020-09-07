@@ -18,7 +18,6 @@ export default function App(props) {
     async function initialize() {
       return firebaseApp.database().ref('questionSets').once('value').then(function(snapshot) {
         let boardData = (snapshot.val());
-        console.log('boardData', boardData);
         setQuestionSet(Object.values(boardData)[0]);
         setQuestionSetNames(Object.keys(boardData));
         setQuestionSets(boardData);
@@ -26,10 +25,6 @@ export default function App(props) {
     }
     initialize();
   }, []);
-
-  useEffect(() => {
-    // firebaseApp.database().ref('questionSets').push(questionSet);  
-  }, [questionSet]);
 
   const updateScore = (points) => {
     setScore(score + points);
@@ -40,7 +35,6 @@ export default function App(props) {
   }
 
   const updateQuestionSet = (set) => {
-    console.log('updateQuestionSet', set);
     setQuestionSet(questionSets[set]);
   }
 

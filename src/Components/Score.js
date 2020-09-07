@@ -60,9 +60,7 @@ export default function Score(props) {
   }
 
   const newGameClick = () => {
-    props.setContestant("");
-    props.setQuestionSet("set1");
-    props.history.push("/");
+    window.location.reload();
   };
 
   const cogClick = () => {

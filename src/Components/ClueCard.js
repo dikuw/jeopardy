@@ -23,6 +23,7 @@ const StyledIncorrectButton = styled.button `
 `;
 
 export default function ClueCard(props) {
+
   const [clueIsShowing, setClueIsShowing] = useState(false);
   const [showAnswerLink, setShowAnswerLink] = useState(false);
   const [answerIsShowing, setAnswerIsShowing] = useState(false);
