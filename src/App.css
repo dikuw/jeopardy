@@ -12,6 +12,7 @@ body {
 
 .hiddenValue {
   opacity: 0;
+  pointer-events: none;
 }
 
 main {
