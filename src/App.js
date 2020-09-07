@@ -32,11 +32,11 @@ export default function App(props) {
 
   const addQuestionSet = (setName, questionSet) => {
     firebaseApp.database().ref(`questionSets/${setName}`).set(questionSet);
-  }
+  };
 
   const updateQuestionSet = (set) => {
     setQuestionSet(questionSets[set]);
-  }
+  };
 
   return (
     <main>

@@ -27,12 +27,13 @@ export default function ClueCard(props) {
   const [clueIsShowing, setClueIsShowing] = useState(false);
   const [showAnswerLink, setShowAnswerLink] = useState(false);
   const [answerIsShowing, setAnswerIsShowing] = useState(false);
-  const [cardText, setCardText] = useState(props.children);
+  const [cardText, setCardText] = useState("");
   const [showButtons, setShowButtons] = useState(false);
 
   const showClue = (e) => {
     e.currentTarget.classList.add("hiddenValue");
-
+    
+    setCardText(props.children);
     setClueIsShowing(true);
 
     setInterval(

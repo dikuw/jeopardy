@@ -347,8 +347,6 @@ export default function Admin(props) {
       ],
     }
 
-    console.log('setName', setName);
-    console.log('questionSet', questionSet);
     props.addQuestionSet(setName, questionSet);
   };
 
