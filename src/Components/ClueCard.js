@@ -9,7 +9,7 @@ const StyledShowAnswerButton = styled.button `
 const StyledCorrectButton = styled.button `
   width: 25%;
   height: 10%;
-  background: green;
+  background: lawngreen;
   z-index: 101;
   position: absolute;
   bottom: 20px;
@@ -19,7 +19,7 @@ const StyledCorrectButton = styled.button `
 const StyledIncorrectButton = styled.button `
   width: 25%;
   height: 10%;
-  background: red;
+  background: tomato;
 `;
 
 export default function ClueCard(props) {
