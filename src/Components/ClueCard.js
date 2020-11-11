@@ -11,6 +11,7 @@ const StyledCorrectButton = styled.button `
   height: 10%;
   background: mediumseagreen;
   position: absolute;
+  bottom: 20px;
   right: 33%;
 `;
 
