@@ -40,7 +40,7 @@ const StyledSaveButton = styled.button `
   font-size: 0.8rem;
   background: black;
   color: white;
-  height: 20px;
+  height: 27px;
   border-radius: 3px;
   border: none;
 `;
